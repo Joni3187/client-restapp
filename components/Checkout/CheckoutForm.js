@@ -4,10 +4,12 @@ import { FormGroup, Label, Input } from "reactstrap";
 import fetch from "isomorphic-fetch";
 import Cookies from "js-cookie";
 import { CardElement, useStripe, useElements } from "@stripe/react-stripe-js";
+import { useRouter } from "next/router";
 import CardSection from "./CardSection";
 import AppContext from "../../context/AppContext";
 
 function CheckoutForm() {
+  const router = useRouter();
   const [data, setData] = useState({
     address: "",
     city: "",
@@ -47,6 +49,8 @@ function CheckoutForm() {
       }),
     });
     alert("Order Created");
+    appContext.clearCart();
+    router.push('/');
 
 
   //   if (response.ok) {
