@@ -2,7 +2,6 @@
 import NextAuth from "next-auth";
 import Providers from "next-auth/providers";
 
-
 const options = {
   providers: [
     Providers.Google({
@@ -10,7 +9,6 @@ const options = {
       clientSecret: process.env.GOOGLE_CLIENT_SECRET,
     }),
   ],
-  database: process.env.NEXT_PUBLIC_DATABASE_URL,
   session: {
     jwt: true,
   },
@@ -18,7 +16,7 @@ const options = {
     session: async (session, user) => {
       session.jwt = user.jwt;
       session.id = user.id;
-      return Promise.resolve(session);
+      return session;
     },
     jwt: async (token, user, account) => {
       const isSignIn = user ? true : false;
@@ -30,7 +28,7 @@ const options = {
         token.jwt = data.jwt;
         token.id = data.user.id;
       }
-      return Promise.resolve(token);
+      return token;
     },
   },
 };

@@ -32,10 +32,9 @@ function CheckoutForm() {
 
   async function submitOrder() {
     // event.preventDefault();
-    
     const cardElement = elements.getElement(CardElement);
     const token = await stripe.createToken(cardElement);
-    const userToken = Cookies.get("token");
+    const userToken = Cookies.get("token") || appContext.token;
     const response = await fetch(`${process.env.NEXT_PUBLIC_API_URL}/orders`, {
       method: "POST",
       headers: userToken && { Authorization: `Bearer ${userToken}` },

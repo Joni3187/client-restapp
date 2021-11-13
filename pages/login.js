@@ -2,6 +2,7 @@
 import React, { useState, useEffect, useContext } from "react";
 import { useRouter } from "next/router";
 import Link from "next/link";
+import { signIn } from 'next-auth/client'
 import {
   Container,
   Row,
@@ -57,73 +58,72 @@ function Login(props) {
                   );
                 })}
 
-                <Form>
-                  <fieldset disabled={loading}>
-                    <FormGroup>
-                      <Label>Email:</Label>
-                      <Input
-                        onChange={(event) => onChange(event)}
-                        name="identifier"
-                        style={{ height: 50, fontSize: "1.2em" }}
-                      />
-                    </FormGroup>
-                    <FormGroup style={{ marginBottom: 30 }}>
-                      <Label>Password:</Label>
-                      <Input
-                        onChange={(event) => onChange(event)}
-                        type="password"
-                        name="password"
-                        style={{ height: 50, fontSize: "1.2em" }}
-                      />
-                    </FormGroup>
+              <Form>
+                <fieldset disabled={loading}>
+                  <FormGroup>
+                    <Label>Email:</Label>
+                    <Input
+                      onChange={(event) => onChange(event)}
+                      name="identifier"
+                      style={{ height: 50, fontSize: "1.2em" }}
+                    />
+                  </FormGroup>
+                  <FormGroup style={{ marginBottom: 30 }}>
+                    <Label>Password:</Label>
+                    <Input
+                      onChange={(event) => onChange(event)}
+                      type="password"
+                      name="password"
+                      style={{ height: 50, fontSize: "1.2em" }}
+                    />
+                  </FormGroup>
 
-                    <FormGroup>
-                      <Button
-                        style={{ width: 120 }}
-                        color="primary"
-                        onClick={() => {
-                          setLoading(true);
-                          login(data.identifier, data.password)
-                            .then((res) => {
-                              setLoading(false);
-                              // set authed User in global context to update header/app state
-                              appContext.setUser(res.data.user);
-                            })
-                            .catch((error) => {
-                              setError(error.response.data);
-                              setLoading(false);
-                            });
-                        }}
-                      >
-                        {loading ? "Loading... " : "Sign In"}
-                      </Button>
+                  <FormGroup>
+                    <Button
+                      style={{ width: 120 }}
+                      color="primary"
+                      onClick={() => {
+                        setLoading(true);
+                        login(data.identifier, data.password)
+                          .then((res) => {
+                            setLoading(false);
+                            // set authed User in global context to update header/app state
+                            appContext.setUser(res.data.user);
+                          })
+                          .catch((error) => {
+                            setError(error.response.data);
+                            setLoading(false);
+                          });
+                      }}
+                    >
+                      {loading ? "Loading... " : "Sign In"}
+                    </Button>
 
-                      <Link href="/api/auth/signin">
-                        <Button
-                          style={{ float: "right", width: 120 }}
-                          color="primary"
-                        >
-                          Google
-                        </Button>
-
-                      </Link>
+                    <Button
+                      style={{ float: "right", width: 120 }}
+                      color="primary"
+                      onClick={() => signIn('', { callbackUrl: '/login' })}
+                    >
+                      Google
+                    </Button>
 
 
-                      <p />
-                      <a href="">
-                        <small>Forgot Password?</small>
+
+                    <p />
+                    <a href="">
+                      <small>Forgot Password?</small>
+                    </a>
+                    <p />
+                    <div className="btnact">
+                      <a href="/register">
+                        <>Create an Account</>
                       </a>
-                      <p />
-                      <div className="btnact">
-                        <a href="/register">
-                          <>Create an Account</>
-                        </a>
-                      </div>
-                    </FormGroup>
-                  </fieldset>
-                </Form>
+                    </div>
+                  </FormGroup>
+                </fieldset>
+              </Form>
 
-                
+
             </section>
           </div>
         </Col>

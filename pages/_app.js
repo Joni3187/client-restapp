@@ -8,14 +8,36 @@ import Layout from "../components/Layout";
 import AppContext from "../context/AppContext";
 import withData from "../lib/apollo";
 
+
+import { useSession } from "next-auth/client"
+
+const withSession = ClassComponent => props => {
+  const [session, loading] = useSession()
+
+  if (loading) return <h1>Loading...</h1>
+
+  if (ClassComponent.prototype.render) { // if the component has a render property, we are good
+    return <ClassComponent session={session} {...props} />
+  }
+
+  // if the passed component is a Function Component, there is no need for this wrapper
+  throw new Error([
+    "You passed a function component, `withSession` is not needed.",
+    "You can `useSession` directly in your component."
+  ].join("\n"))
+}
+
 class MyApp extends App {
   state = {
     user: null,
     cart: { items: [], total: 0 },
+    token: null
   };
 
   componentDidMount() {
-    const token = Cookie.get("token");
+    const { session } = this.props;
+    const token = Cookie.get("token") || session?.jwt;
+
     // restore cart from cookie, this could also be tracked in a db
     const cart = Cookie.get("cart");
     //if items in cart, set items and total from cookie
@@ -43,8 +65,9 @@ class MyApp extends App {
           this.setState({ user: null });
           return null;
         }
+
         const user = await res.json();
-        this.setUser(user);
+        this.setState({ user, token });
       });
     }
   }
@@ -127,7 +150,7 @@ class MyApp extends App {
   };
 
   render() {
-    const { Component, pageProps } = this.props;
+    const { Component, pageProps, props } = this.props;
 
     return (
       <AppContext.Provider
@@ -139,6 +162,7 @@ class MyApp extends App {
           addItem: this.addItem,
           removeItem: this.removeItem,
           clearCart: this.clearCart,
+          token: this.state.token
         }}
       >
         <Head>
@@ -151,11 +175,11 @@ class MyApp extends App {
         </Head>
 
         <Layout>
-          <Component {...pageProps} />
+          <Component {...props} {...pageProps} />
         </Layout>
       </AppContext.Provider>
     );
   }
 }
 
-export default withData(MyApp);
+export default withData(withSession(MyApp));

@@ -17,7 +17,7 @@ app
       app.render(req, res, actualPage, queryParams);
     });
 
-    server.get("*", (req, res) => {
+    server.all("*", (req, res) => {
       return handle(req, res);
     });
 
