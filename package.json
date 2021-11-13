@@ -1,14 +1,12 @@
 {
-  
   "scripts": {
     "dev": "node server.js",
     "build": "next build",
     "start": "NODE_ENV=production node server.js -p $PORT",
     "heroku-postbuild": "next build"
   },
-
-
   "dependencies": {
+    "@apollo/client": "^3.4.17",
     "@apollo/react-hooks": "3.1.5",
     "@apollo/react-ssr": "3.1.5",
     "@stripe/react-stripe-js": "1.1.2",

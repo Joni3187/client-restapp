@@ -14,7 +14,7 @@ function Home() {
 
           <div className="search">
             <InputGroup>
-              <InputGroupAddon addonType="append"> Search Restaurants
+              <InputGroupAddon addonType="append"> Search Rest
                 </InputGroupAddon>
               <Input onChange={e => updateQuery(e.target.value.toLocaleLowerCase())}
                 value={query}/>
