@@ -99,13 +99,13 @@ function Login(props) {
                       {loading ? "Loading... " : "Sign In"}
                     </Button>
 
-                    <Button
+                    {/* <Button
                       style={{ float: "right", width: 120 }}
                       color="primary"
                       onClick={() => signIn('', { callbackUrl: '/login' })}
                     >
                       Google
-                    </Button>
+                    </Button> */}
 
 
 
