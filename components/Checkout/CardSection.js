@@ -1,5 +1,4 @@
 /* components/Checkout/cardsection.js */
-// Checkout - Credit Card lower card
 import { CardElement } from "@stripe/react-stripe-js";
 import React from "react";
 

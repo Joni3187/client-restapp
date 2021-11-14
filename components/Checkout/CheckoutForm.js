@@ -52,11 +52,6 @@ function CheckoutForm() {
     router.push('/');
 
 
-  //   if (response.ok) {
-  //     setState(response.statusText);
-  //   }
-  // }
-
     if (!response.ok) {
       setError(response.statusText);
     }
