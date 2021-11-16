@@ -59,7 +59,7 @@ function CheckoutForm() {
 
   return (
     <div className="paper">
-      <h5>Your informations:</h5>
+      <h5>Your information:</h5>
       <hr />
 
       <FormGroup style={{ display: "flex" }}>
@@ -191,7 +191,7 @@ function CheckoutForm() {
           .StripeElement.PaymentRequestButton {
             padding: 0;
           }
-          {/* input:invalid {
+          input:invalid {
             border: 2px dashed red;
           }
 
@@ -201,7 +201,7 @@ function CheckoutForm() {
 
           input:valid {
             border: 2px solid black;
-          } */}
+          }
         `}
       </style>
 
