@@ -59,24 +59,24 @@ function CheckoutForm() {
 
   return (
     <div className="paper">
-      <h5>Your information:</h5>
+      <h5>Your informations:</h5>
       <hr />
 
       <FormGroup style={{ display: "flex" }}>
         <div style={{ flex: "0.90", marginRight: 10 }}>
           <Label>Address</Label>
-          <Input required=" " name="address" onChange={onChange} />
+          <Input required name="address" onChange={onChange} />
         </div>
       </FormGroup>
 
       <FormGroup style={{ display: "flex" }}>
         <div style={{ flex: "0.65", marginRight: "6%" }}>
           <Label>City</Label>
-          <Input required=" " name="city" onChange={onChange} />
+          <Input required name="city" onChange={onChange} />
         </div>
         <div style={{ flex: "0.25", marginRight: 0 }}>
           <Label>State</Label>
-          <Input required=" " name="state" onChange={onChange} />
+          <Input required name="state" onChange={onChange} />
         </div>
       </FormGroup>
 
@@ -191,6 +191,17 @@ function CheckoutForm() {
           .StripeElement.PaymentRequestButton {
             padding: 0;
           }
+          {/* input:invalid {
+            border: 2px dashed red;
+          }
+
+          input:invalid:required {
+            background-image: linear-gradient(to right, pink, gray);
+          }
+
+          input:valid {
+            border: 2px solid black;
+          } */}
         `}
       </style>
 
