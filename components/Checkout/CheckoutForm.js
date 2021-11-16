@@ -192,12 +192,12 @@ function CheckoutForm() {
             padding: 0;
           }
           input:invalid {
-            border: 2px dashed red;
+            box-shadow: 0 0 5px 1px red;
           }
 
-          input:invalid:required {
+          {/* input:invalid:required {
             background-image: linear-gradient(to right, pink, gray);
-          }
+          } */}
 
           input:valid {
             border: 2px solid black;
